@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using GameList.Repositories;
+using GameList.Services;
 using GameList.Models;
 using GameList.Data;
 
@@ -13,6 +14,8 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<MyDbContext>(x => x.UseNpgsql(connectionString));
+        builder.Services.AddScoped<IProfileService, ProfileService>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
 
         builder.Services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<MyDbContext>()
