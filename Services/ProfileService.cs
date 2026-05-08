@@ -1,11 +1,11 @@
-using GameList.Models;
 using GameList.Repositories;
+using GameList.ViewModels;
 
 namespace GameList.Services;
 
 public interface IProfileService
 {
-    Task<User> GetUserByUsername(string username);
+    Task<ProfileViewModel> GetUserDtoByUsername(string username);
 }
 
 public class ProfileService : IProfileService
@@ -15,8 +15,14 @@ public class ProfileService : IProfileService
     {
         _userRepository = userRepository;
     }
-    public async Task<User> GetUserByUsername(string username)
+    public async Task<ProfileViewModel> GetUserDtoByUsername(string username)
     {
-        return await _userRepository.GetUserByUsername(username);
+        var userModel = await _userRepository.GetUserByUsername(username);
+        var ProfileViewModel = new ProfileViewModel
+        {
+            UserName = userModel.UserName,
+            ImgUrl = userModel.ImgUrl
+        };
+        return ProfileViewModel;
     }
 }
