@@ -14,10 +14,16 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<MyDbContext>(x => x.UseNpgsql(connectionString));
+        builder.Services.AddScoped<UserManager<User>>();
         builder.Services.AddScoped<IProfileService, ProfileService>();
         builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IAccountService, AccountService>();
 
-        builder.Services.AddIdentity<User, IdentityRole>()
+        builder.Services.AddIdentity<User, IdentityRole>(options =>
+        {
+            options.User.RequireUniqueEmail = true;
+            options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+        })
             .AddEntityFrameworkStores<MyDbContext>()
             .AddDefaultTokenProviders();
 

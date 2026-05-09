@@ -15,7 +15,6 @@ public class ProfileController : Controller
     public async Task<IActionResult> Profile(string username)
     {
         var profile = await _profileService.GetUserDtoByUsername(username);
-
         return View(profile);
     }
 }

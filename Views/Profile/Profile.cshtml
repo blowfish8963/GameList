@@ -1,10 +1,10 @@
 @model GameList.ViewModels.ProfileViewModel
 
 @{
-    ViewData["Title"] = $"{Model.UserName}'s Profile' ";
+    ViewData["Title"] = $"{Model.UserName}'s Profile";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>testing viewmodel @Model.ImgUrl</p>
+    <h1 class="display-4">@Model.UserName</h1>
+    <p>pfp url @Model.ImgUrl</p>
 </div>
