@@ -26,7 +26,7 @@ public class GameRepository : IGameRepository
 
     public async Task<Platform> GetPlatformByName(string name)
     {
-        var platform = await _dbContext.Platforms.FirstOrDefaultAsync(x => x.Name == name);
+        var platform = await _dbContext.Platforms.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
         if (platform == null) throw new KeyNotFoundException();
         return platform;
     }
