@@ -12,9 +12,9 @@ public interface IUserRepository
 public class UserRepository : IUserRepository
 {
     private MyDbContext _dbContext;
-    public UserRepository(MyDbContext myDbContext)
+    public UserRepository(MyDbContext dbContext)
     {
-        _dbContext = myDbContext;
+        _dbContext = dbContext;
     }
 
     public async Task<User> GetUserByUsername(string username)

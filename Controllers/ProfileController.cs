@@ -3,6 +3,7 @@ using GameList.Services;
 
 namespace GameList.Controllers;
 
+[ApiController]
 public class ProfileController : Controller
 {
     private readonly IProfileService _profileService;
@@ -14,7 +15,7 @@ public class ProfileController : Controller
     [Route("Profile/{username}")]
     public async Task<IActionResult> Profile(string username)
     {
-        var profile = await _profileService.GetUserDtoByUsername(username);
+        var profile = await _profileService.GetUserByUsername(username);
         return View(profile);
     }
 }

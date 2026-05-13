@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using GameList.Services;
 using GameList.Models;
-using ViewModels;
+using GameList.ViewModels;
 
 namespace GameList.Controllers;
 
@@ -38,7 +37,7 @@ public class AccountController : Controller
 
         if (result.Succeeded)
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
         else
         {

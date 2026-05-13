@@ -1,0 +1,11 @@
+@model GameList.ViewModels.GameViewModel
+
+@{
+    ViewData["Title"] = $"{Model.Name}";
+}
+
+<div>
+    <h1 class="display-4">@Model.Name</h1>
+    <p>cover url @Model.ImgUrl</p>
+    <p>banner url @Model.BannerUrl</p>
+</div>

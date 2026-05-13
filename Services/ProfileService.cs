@@ -5,7 +5,7 @@ namespace GameList.Services;
 
 public interface IProfileService
 {
-    Task<ProfileViewModel> GetUserDtoByUsername(string username);
+    Task<ProfileViewModel> GetUserByUsername(string username);
 }
 
 public class ProfileService : IProfileService
@@ -15,7 +15,7 @@ public class ProfileService : IProfileService
     {
         _userRepository = userRepository;
     }
-    public async Task<ProfileViewModel> GetUserDtoByUsername(string username)
+    public async Task<ProfileViewModel> GetUserByUsername(string username)
     {
         var userModel = await _userRepository.GetUserByUsername(username);
         var ProfileViewModel = new ProfileViewModel

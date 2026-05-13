@@ -16,6 +16,8 @@ public class Program
         builder.Services.AddDbContext<MyDbContext>(x => x.UseNpgsql(connectionString));
         builder.Services.AddScoped<IProfileService, ProfileService>();
         builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IGameService, GameService>();
+        builder.Services.AddScoped<IGameRepository, GameRepository>();
 
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {

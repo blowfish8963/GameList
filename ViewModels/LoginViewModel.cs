@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ViewModels;
+namespace GameList.ViewModels;
 
  public class LoginViewModel
 {
