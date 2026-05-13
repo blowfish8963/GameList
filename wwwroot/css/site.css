@@ -2,6 +2,11 @@ html {
   font-size: 18px;
 }
 
+a {
+  text-decoration-color: #753db2;
+  color: #753db2;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -60,6 +65,7 @@ body h1, label {
   color: #bcbcbc;
   background-color: #4b1882;
   border-color: #000000;
+  margin: 0;
 }
 
 input[type="text"], input[type="password"], input[type="email"] {
@@ -83,6 +89,7 @@ input[type="text"], input[type="password"], input[type="email"] {
   width: 100%;
   white-space: nowrap;
   line-height: 25px;
+  font-size: medium;
   background-color: #212121;
   color: #828282;
 }

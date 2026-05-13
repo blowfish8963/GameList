@@ -14,10 +14,8 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<MyDbContext>(x => x.UseNpgsql(connectionString));
-        builder.Services.AddScoped<UserManager<User>>();
         builder.Services.AddScoped<IProfileService, ProfileService>();
         builder.Services.AddScoped<IUserRepository, UserRepository>();
-        builder.Services.AddScoped<IAccountService, AccountService>();
 
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {
@@ -30,15 +28,20 @@ public class Program
         builder.Services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath = "/Account/Login";
-            options.LogoutPath = "/Account/Logout";
             options.AccessDeniedPath = "/Account/AccessDenied";
+            options.SlidingExpiration = true;
         });
 
         builder.Services.AddControllersWithViews();
 
         var app = builder.Build();
 
-        if (!app.Environment.IsDevelopment())
+        
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        else
         {
             app.UseExceptionHandler("/Home/Error");
             app.UseHsts();

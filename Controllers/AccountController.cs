@@ -1,14 +1,19 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using GameList.Services;
+using GameList.Models;
 using ViewModels;
 
 namespace GameList.Controllers;
 
 public class AccountController : Controller
-{    private readonly IAccountService _accountService;
-    public AccountController(IAccountService accountService)
+{    
+    private UserManager<User> _userManager;
+    private SignInManager<User> _signInManager;
+    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
     {
-        _accountService = accountService;
+        _userManager = userManager;
+        _signInManager = signInManager;
     }
 
     public IActionResult Register()
@@ -17,14 +22,20 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(RegisterViewModel viewModel)
     {
         if (!ModelState.IsValid)
         {
             return View(viewModel);
         }
+        var user = new User()
+        {
+            UserName = viewModel.Username,
+            Email = viewModel.Email
+        };
+        var result = await _userManager.CreateAsync(user, viewModel.Password);
 
-        var result = await _accountService.Register(viewModel);
         if (result.Succeeded)
         {
             return RedirectToAction("Index", "Home");
@@ -39,15 +50,37 @@ public class AccountController : Controller
         }
     }
 
-    public IActionResult Login()
+    public async Task<IActionResult> Login()
     {
         return View();
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel viewModel)
     {
+        if (!ModelState.IsValid)
+        {
+            return View(viewModel);
+        }
+        var result = await _signInManager.PasswordSignInAsync(viewModel.Username, viewModel.Password, viewModel.RememberMe, lockoutOnFailure: false);
         
-        return View();
+        if (result.Succeeded) 
+        {
+            return RedirectToAction("Index", "Home");
+        }
+        else
+        {
+            ModelState.AddModelError("", "Incorrect username or password.");
+            return View(viewModel);
+        }
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Index", "Home");
     }
 }
