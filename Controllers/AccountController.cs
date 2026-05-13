@@ -10,6 +10,7 @@ public class AccountController : Controller
     {
         _accountService = accountService;
     }
+
     public IActionResult Register()
     {
         return View();
@@ -36,5 +37,17 @@ public class AccountController : Controller
             }
             return View(viewModel);
         }
+    }
+
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginViewModel viewModel)
+    {
+        
+        return View();
     }
 }
