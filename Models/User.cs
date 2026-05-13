@@ -5,4 +5,5 @@ namespace GameList.Models;
 public class User : IdentityUser
 {
     public string? ImgUrl {get;set;}
+    public string? BannerUrl {get;set;}
 }

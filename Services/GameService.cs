@@ -7,6 +7,7 @@ namespace GameList.Services;
 public interface IGameService
 {
     public Task<GameViewModel> GetGameByName(string name);
+    Task<PlatformViewModel> GetPlatformByName(string name);
 }
 public class GameService : IGameService
 {
@@ -27,7 +28,26 @@ public class GameService : IGameService
             BannerUrl = game.BannerUrl,
             BannerOffset = game.BannerOffset,
             Platforms = game.Platforms,
-            FanCount = game.FanCount
+            FanCount = game.FanCount,
+            Publisher = game.Publisher,
+            ReleaseYear = game.ReleaseYear 
+        };
+    }
+
+    public async Task<PlatformViewModel> GetPlatformByName(string name)
+    {
+        var platform = await _gameRepository.GetPlatformByName(name);
+        return new PlatformViewModel
+        {
+            Name = platform.Name,
+            DisplayName = platform.DisplayName,
+            Desc = platform.Desc,
+            ImgUrl = platform.ImgUrl,
+            BannerUrl = platform.BannerUrl,
+            BannerOffset = platform.BannerOffset,
+            ReleaseYear = platform.ReleaseYear,
+            Company = platform.Company,
+            FanCount = platform.FanCount
         };
     }
 }

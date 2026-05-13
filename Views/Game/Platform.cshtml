@@ -1,9 +1,10 @@
+@using Microsoft.CodeAnalysis.CSharp.Syntax
 @using Microsoft.EntityFrameworkCore.Metadata.Internal
-@model GameList.ViewModels.GameViewModel
+@using System.Runtime.InteropServices
+@model GameList.ViewModels.PlatformViewModel
 
 @{
-    ViewData["Title"] = $"{Model.DisplayName}";
-    var platforms = Model.Platforms;
+    ViewData["Title"] = $"{Model}";
     var offset = Model.BannerOffset;
 }
 
@@ -27,30 +28,20 @@
                         <button class="btn btn-primary">Favorite</button>
                     </div> <br />
                 }
-                @if (@platforms != null && platforms.Count > 0)
-                {
-                    <h8>Platform(s)</h8>
-                    foreach (var p in platforms)
-                    {
-                        <a class="text-end nav-link" asp-controller="Game" asp-action="Platform" asp-route-name="@p">@p.Replace('_', ' ')</a>
-                    }
-                     <br/>
-                }
-                <h8>Fans on GameList</h8>
-                <p class="text-end">@Model.FanCount</p>
+                    <h8>Fans on GameList</h8>
+                    <p class="text-end">@Model.FanCount</p>
                 @if (@Model.ReleaseYear is not null){
                     <h8>Release date</h8>
                     <p class="text-end">@Model.ReleaseYear</p>
                 }
-                @if (@Model.Publisher is not null){
-                    <h8>Publisher</h8>
-                    <p class="text-end">@Model.Publisher</p>
+                @if (@Model.Company is not null){
+                    <h8>Company</h8>
+                    <p class="text-end">@Model.Company</p>
                 }
             </div>
         </div>
-
         <div>
-        <h1 class="display-5">@Model.DisplayName</h1>
+        <h1 class="display-5">@Model.Name.Replace('_',' ')</h1>
         <p class="game-desc">@Model.Desc</p>
     </div>
     </div>

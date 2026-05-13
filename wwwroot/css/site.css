@@ -13,8 +13,12 @@ a {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus{
+.btn-link.nav-link:focus{
   box-shadow: 0 0 0 0.25rem #993def;
+  background-color: #993def;
+}
+
+.btn:focus, .btn:active:focus {
   background-color: #993def;
 }
 
@@ -116,15 +120,12 @@ input[type="text"], input[type="password"], input[type="email"] {
   margin-right: 2vw;
   position: relative;
   top: -6vw;
+  max-width: 196px;
 }
 
 .game-left-column p{
   color: #bcbcbc;
 } 
-
-.game-btns1 {
-  
-}
 
 .add-to-list{
   width: 196px;

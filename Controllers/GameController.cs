@@ -11,10 +11,18 @@ public class GameController : Controller
     {
         _gameService = gameService;
     }
+
     [Route("Game/{name}")]
     public async Task<IActionResult> Game(string name)
     {
         var game = await _gameService.GetGameByName(name);
         return View(game);
+    }
+
+    [Route("Platform/{name}")]
+    public async Task<IActionResult> Platform(string name)
+    {
+        var platform = await _gameService.GetPlatformByName(name);
+        return View(platform);
     }
 }
