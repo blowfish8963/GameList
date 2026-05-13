@@ -9,6 +9,7 @@ public class GameViewModel
     public string? Desc {get;set;}
     public string? ImgUrl {get;set;}
     public string? BannerUrl {get;set;}
+    public float BannerOffset{get;set;}
     public List<string>? Platforms {get;set;}
     public int FanCount {get;set;}
 }

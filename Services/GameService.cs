@@ -25,6 +25,7 @@ public class GameService : IGameService
             Desc = game.Desc,
             ImgUrl = game.ImgUrl,
             BannerUrl = game.BannerUrl,
+            BannerOffset = game.BannerOffset,
             Platforms = game.Platforms,
             FanCount = game.FanCount
         };

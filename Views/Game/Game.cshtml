@@ -4,11 +4,12 @@
 @{
     ViewData["Title"] = $"{Model.DisplayName}";
     var platforms = Model.Platforms;
+    var offset = Model.BannerOffset;
 }
 
 <div class="game-profile">
-    <img class="banner" src="~/images/@Model.BannerUrl"/>
-
+    <img class="banner" src="~/images/@Model.BannerUrl" style="object-position: center @offset%;"/>
+ 
     <div class="d-sm-inline-flex">
 
         <div class="game-left-column">
