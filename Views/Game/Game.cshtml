@@ -1,11 +1,40 @@
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model GameList.ViewModels.GameViewModel
 
 @{
-    ViewData["Title"] = $"{Model.Name}";
+    ViewData["Title"] = $"{Model.DisplayName}";
 }
 
-<div>
-    <h1 class="display-4">@Model.Name</h1>
-    <p>cover url @Model.ImgUrl</p>
-    <p>banner url @Model.BannerUrl</p>
+<div class="game-profile">
+    <img class="banner" src="~/images/@Model.BannerUrl"/>
+
+    <div class="d-sm-inline-flex">
+
+        <div class="game-left-column">
+            <img class="cover" src="~/images/@Model.ImgUrl"/>
+
+            <div>
+                @if (true){
+                    <div class="game-btns1">
+                        <button class="btn btn-primary add-to-list">Add To List</button>
+                    </div> <br />
+                }
+                else {
+                    <div class="game-btns2">
+                        <button class="btn btn-primary">Remove</button>
+                        <button class="btn btn-primary">Favorite</button>
+                    </div> <br />
+                }
+                <h8>Platform(s)</h4> <br/> <br/>
+                <p></p>
+                <h8>Fans on GameList</h4>
+                <p>@Model.FanCount</p>
+            </div>
+        </div>
+
+        <div>
+        <h1 class="display-4">@Model.DisplayName</h1>
+        <p class="game-desc">@Model.Desc</p>
+    </div>
+    </div>
 </div>

@@ -20,6 +20,7 @@ public class GameService : IGameService
         return new GameViewModel
         {
             Name = game.Name,
+            DisplayName = game.DisplayName,
             Desc = game.Desc,
             ImgUrl = game.ImgUrl,
             BannerUrl = game.BannerUrl,

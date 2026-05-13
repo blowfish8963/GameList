@@ -57,7 +57,7 @@ body {
   font-family: monospace;
 }
 
-body h1, label {
+body h1, label, h8 {
   color: #ffff;
 }
 
@@ -80,7 +80,58 @@ input[type="text"], input[type="password"], input[type="email"] {
 .btn:hover {
   color: #ffff;
   background-color: #8e15ff;
-  border-color: #ffff;
+  border-color: black;
+}
+
+.banner {
+  width: fit-content;
+  display: block;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-bottom: 1vw;
+  height: 16vw;
+  opacity: 50%;
+  object-fit: cover;
+}
+
+.game-profile {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.cover {
+  height: 280px;
+  width: 196px;
+  margin-bottom: 1vw;
+}
+
+.game-left-column{
+  display: flex;
+  flex-direction: column;
+  margin-right: 2vw;
+  position: relative;
+  top: -6vw;
+}
+
+.game-left-column p{
+  color: #bcbcbc;
+} 
+
+.game-btns1 {
+  
+}
+
+.add-to-list{
+  width: 196px;
+}
+
+.game-btns2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1vw;
+  padding-right: 1vw;
 }
 
 .footer {
