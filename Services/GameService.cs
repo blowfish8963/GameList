@@ -1,3 +1,4 @@
+using GameList.Models;
 using GameList.Repositories;
 using GameList.ViewModels;
 

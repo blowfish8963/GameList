@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = $"{Model.DisplayName}";
+    var platforms = Model.Platforms;
 }
 
 <div class="game-profile">
@@ -25,15 +26,26 @@
                         <button class="btn btn-primary">Favorite</button>
                     </div> <br />
                 }
-                <h8>Platform(s)</h4> <br/> <br/>
-                <p></p>
+                <h8>Platform(s)</h4>
+                @if (@platforms != null && platforms.Count > 0)
+                {
+                    foreach (var p in platforms)
+                    {
+                        <a class="nav-link">@p.Replace('_', ' ')</a>
+                    }
+                     <br/>
+                }
+                else
+                {
+                    <p>N/A</p>
+                }
                 <h8>Fans on GameList</h4>
                 <p>@Model.FanCount</p>
             </div>
         </div>
 
         <div>
-        <h1 class="display-4">@Model.DisplayName</h1>
+        <h1 class="display-5">@Model.DisplayName</h1>
         <p class="game-desc">@Model.Desc</p>
     </div>
     </div>

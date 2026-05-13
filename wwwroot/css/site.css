@@ -18,6 +18,10 @@ a {
   background-color: #993def;
 }
 
+.nav-link:hover{
+  color: #753db2;
+}
+
 .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.25rem #993def;
   background-color: #d0d0d0;
@@ -90,7 +94,7 @@ input[type="text"], input[type="password"], input[type="email"] {
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   margin-bottom: 1vw;
-  height: 16vw;
+  height: 13vw;
   opacity: 50%;
   object-fit: cover;
 }
