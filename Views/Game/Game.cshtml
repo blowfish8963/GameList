@@ -27,25 +27,33 @@
                         <button class="btn btn-primary">Favorite</button>
                     </div> <br />
                 }
-                @if (@platforms != null && platforms.Count > 0)
-                {
-                    <h8>Platform(s)</h8>
-                    foreach (var p in platforms)
+                <div class="infoblock">
+                    @if (@platforms != null && platforms.Count > 0)
                     {
-                        <a class="text-end nav-link" asp-controller="Game" asp-action="Platform" asp-route-name="@p">@p.Replace('_', ' ')</a>
+                        <h8>Platforms:</h8>
+                        int i = 0;
+                        foreach (var p in platforms)
+                        {
+                            i++;
+                            <a class="nav-link" asp-controller="Game" asp-action="Platform" asp-route-name="@p">@p.Replace('_', ' ')</a>@(i < platforms.Count ? "," : "")
+                        }
                     }
-                     <br/>
+                </div><br />
+                <div class="infoblock">
+                    <h8>GameList fans:</h8>
+                    <p>@Model.FanCount</p>
+                </div><br />
+                <div class="infoblock">
+                    @if (@Model.ReleaseYear is not null){
+                    <h8>Released: </h8><p class="text-end">@Model.ReleaseYear</p>
                 }
-                <h8>Fans on GameList</h8>
-                <p class="text-end">@Model.FanCount</p>
-                @if (@Model.ReleaseYear is not null){
-                    <h8>Release date</h8>
-                    <p class="text-end">@Model.ReleaseYear</p>
-                }
-                @if (@Model.Publisher is not null){
-                    <h8>Publisher</h8>
+                </div><br />
+                <div class="infoblock">
+                    @if (@Model.Publisher is not null){
+                    <h8>Publisher:</h8>
                     <p class="text-end">@Model.Publisher</p>
                 }
+                </div>
             </div>
         </div>
 

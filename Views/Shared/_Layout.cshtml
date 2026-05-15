@@ -33,7 +33,7 @@
                                 <a class="nav-link" href="~/Profile/@User.Identity.Name">Profile</a>
                             </li>
                             <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-                                <button class="nav-link" type="submit">Logout</button>
+                                <button class="nav-link btn-logout" type="submit">Logout</button>
                                 @Html.AntiForgeryToken()
                             </form>
                         </ul>

@@ -36,7 +36,9 @@ body h1, label, h8 {
 .nav-link:hover{
   color: #753db2;
 }
-
+.navbar .btn-logout:hover {
+  color: #c13b3b;
+}
 
 input[type="text"], input[type="password"], input[type="email"] {
   background-color : #aaaaaa;
@@ -99,16 +101,25 @@ input[type="text"], input[type="password"], input[type="email"] {
   margin-right: 2vw;
   position: relative;
   top: -6vw;
-  max-width: 196px;
+  max-width: 231px;
   color: #bcbcbc;
 }
+.infoblock{
+  font-size: 14px;
+}
+.infoblock a{
+  display: inline;
+}
+.infoblock p{
+  display: inline;
+}
 .cover {
-  height: 280px;
-  width: 196px;
+  height: 330px;
+  width: 231px;
   margin-bottom: 1vw;
 }
 .add-to-list{
-  width: 196px;
+  width: 231px;
 }
 .game-btns2 {
   display: flex;
