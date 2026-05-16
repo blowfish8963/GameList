@@ -1,5 +1,4 @@
 @using GameList.ViewModels
-@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model GameList.ViewModels.GameViewModel
 
 @{
@@ -50,14 +49,14 @@
                 }
                 </div>
                 <div class="infoblock">
-                    @if (@Model.ReleaseYear is not null && Model.ReleaseYear != ""){
-                    <h8>Released: </h8><p>@Model.ReleaseYear</p>
-                }
-                </div>
-                <div class="infoblock">
                     @if (@Model.Publisher is not null && Model.Publisher != ""){
                     <h8>Publisher:</h8>
                     <p>@Model.Publisher</p>
+                }
+                </div>
+                <div class="infoblock">
+                    @if (@Model.ReleaseYear is not null && Model.ReleaseYear != ""){
+                    <h8>Released: </h8><p>@Model.ReleaseYear</p>
                 }
                 </div>
             </div>

@@ -138,6 +138,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 .game-row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .game-card {
   position: relative;
@@ -150,10 +151,6 @@ input[type="text"], input[type="password"], input[type="email"] {
 }
 .game-card:hover{
   transform: scale(1.02);
-}
-.game-card-gradient{
-  max-height: 280px;
-  max-width: 196px;
 }
 .game-card-gradient::before {
   content: "";

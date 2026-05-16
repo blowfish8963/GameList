@@ -1,5 +1,3 @@
-using GameList.Models;
-
 namespace GameList.ViewModels;
 
 public class GameViewModel
