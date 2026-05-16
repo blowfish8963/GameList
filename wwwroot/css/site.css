@@ -106,6 +106,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 }
 .infoblock{
   font-size: 14px;
+  margin-bottom: 10px;
 }
 .infoblock a{
   display: inline;
@@ -121,6 +122,9 @@ input[type="text"], input[type="password"], input[type="email"] {
 }
 .add-to-list{
   width: 231px;
+}
+.game-btns1 {
+  margin-bottom: 10px;  
 }
 .game-btns2 {
   display: flex;
@@ -155,7 +159,7 @@ input[type="text"], input[type="password"], input[type="email"] {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, #000000d3, #7b7b7b00);
+  background: linear-gradient(to top, #000000b1 10%, #0d0d0dae 20%, #45454500);
 }
 .game-card img {
   position: absolute;
@@ -172,7 +176,8 @@ input[type="text"], input[type="password"], input[type="email"] {
   position: absolute;
   bottom: 9px;
   left: 9px;
-  width: 100%;
+  right: 9px;
+  pointer-events: none;
 }
 
 

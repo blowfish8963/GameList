@@ -21,7 +21,7 @@
                 @if (true){
                     <div class="game-btns1">
                         <button class="btn btn-primary add-to-list">Add To List</button>
-                    </div> <br />
+                    </div>
                 }
                 else {
                     <div class="game-btns2">
@@ -39,19 +39,23 @@
                             <a class="nav-link" asp-controller="Game" asp-action="Platform" asp-route-name="@p.Name">@p.DisplayName</a>@(i < platforms.Count ? "," : "")
                         }
                     </div>
-                    <br />
                 }
                 <div class="infoblock">
                     <h8>GameList fans:</h8>
                     <p>@Model.FanCount</p>
-                </div><br />
+                </div>
                 <div class="infoblock">
-                    @if (@Model.ReleaseYear is not null){
+                    @if (@Model.Developer is not null && Model.Developer != ""){
+                    <h8>Developer: </h8><p>@Model.Developer</p>
+                }
+                </div>
+                <div class="infoblock">
+                    @if (@Model.ReleaseYear is not null && Model.ReleaseYear != ""){
                     <h8>Released: </h8><p>@Model.ReleaseYear</p>
                 }
-                </div><br />
+                </div>
                 <div class="infoblock">
-                    @if (@Model.Publisher is not null){
+                    @if (@Model.Publisher is not null && Model.Publisher != ""){
                     <h8>Publisher:</h8>
                     <p>@Model.Publisher</p>
                 }

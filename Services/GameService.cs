@@ -22,7 +22,7 @@ public class GameService : IGameService
     {
         var game = await _gameRepository.GetGameByName(name);
         var plaftorms = new List<GameViewPlatform>();
-        foreach (var p in game.Platforms.OrderBy(x => x.ReleaseYear).ThenBy(x => x.Name))
+        foreach (var p in game.Platforms.OrderBy(x => x.ReleaseYear))
         {
             plaftorms.Add(new GameViewPlatform
             {
@@ -40,6 +40,7 @@ public class GameService : IGameService
             BannerOffset = game.BannerOffset,
             Platforms = plaftorms,
             FanCount = game.FanCount,
+            Developer = game.Developer,
             Publisher = game.Publisher,
             ReleaseYear = game.ReleaseYear 
         };

@@ -20,7 +20,7 @@
                 @if (true){
                     <div class="game-btns1">
                         <button class="btn btn-primary add-to-list">Add To List</button>
-                    </div> <br />
+                    </div>
                 }
                 else {
                     <div class="game-btns2">
@@ -32,13 +32,13 @@
                         <h8>GameList fans: </h8>
                         <p>@Model.FanCount</p>
                     </div>
-                @if (@Model.ReleaseYear is not null){
+                @if (@Model.ReleaseYear is not null && Model.ReleaseYear != ""){
                     <div class="infoblock">
                         <h8>Released: </h8>
                         <p>@Model.ReleaseYear</p>
                     </div>
                 }
-                @if (@Model.Company is not null){
+                @if (@Model.Company is not null && Model.Company != ""){
                     <div class="infoblock">
                         <h8>Company: </h8>
                         <p>@Model.Company</p>
