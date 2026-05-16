@@ -117,6 +117,7 @@ input[type="text"], input[type="password"], input[type="email"] {
   height: 330px;
   width: 231px;
   margin-bottom: 1vw;
+  border-radius: 2%;
 }
 .add-to-list{
   width: 231px;
@@ -127,6 +128,51 @@ input[type="text"], input[type="password"], input[type="email"] {
   justify-content: space-between;
   padding-left: 1vw;
   padding-right: 1vw;
+}
+
+
+.game-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.game-card {
+  position: relative;
+  height: 280px;
+  width: 196px;
+  transition: transform 0.3s ease;
+  color: #ffff;
+  margin: 9px;
+  padding: 9px;
+}
+.game-card:hover{
+  transform: scale(1.02);
+}
+.game-card-gradient{
+  max-height: 280px;
+  max-width: 196px;
+}
+.game-card-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #000000d3, #7b7b7b00);
+}
+.game-card img {
+  position: absolute;
+  inset: 0;
+  height: 280px;
+  width: 196px;
+  z-index: -1;
+  border-radius: 2%;
+}
+.game-card span {
+  font-size: 14px;
+}
+.game-card-info{
+  position: absolute;
+  bottom: 9px;
+  left: 9px;
+  width: 100%;
 }
 
 

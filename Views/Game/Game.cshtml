@@ -1,9 +1,11 @@
+@using GameList.ViewModels
 @using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model GameList.ViewModels.GameViewModel
 
 @{
     ViewData["Title"] = $"{Model.DisplayName}";
-    var platforms = Model.Platforms;
+    var platforms = new List<GameViewPlatform>();
+    if (Model.Platforms is not null) platforms = Model.Platforms;   
     var offset = Model.BannerOffset;
 }
 
@@ -27,31 +29,31 @@
                         <button class="btn btn-primary">Favorite</button>
                     </div> <br />
                 }
-                <div class="infoblock">
-                    @if (@platforms != null && platforms.Count > 0)
-                    {
+                @if (platforms != null && platforms.Count > 0){
+                    <div class="infoblock">
                         <h8>Platforms:</h8>
-                        int i = 0;
-                        foreach (var p in platforms)
+                        @{int i = 0;}
+                        @foreach (var p in platforms)
                         {
                             i++;
-                            <a class="nav-link" asp-controller="Game" asp-action="Platform" asp-route-name="@p">@p.Replace('_', ' ')</a>@(i < platforms.Count ? "," : "")
+                            <a class="nav-link" asp-controller="Game" asp-action="Platform" asp-route-name="@p.Name">@p.DisplayName</a>@(i < platforms.Count ? "," : "")
                         }
-                    }
-                </div><br />
+                    </div>
+                    <br />
+                }
                 <div class="infoblock">
                     <h8>GameList fans:</h8>
                     <p>@Model.FanCount</p>
                 </div><br />
                 <div class="infoblock">
                     @if (@Model.ReleaseYear is not null){
-                    <h8>Released: </h8><p class="text-end">@Model.ReleaseYear</p>
+                    <h8>Released: </h8><p>@Model.ReleaseYear</p>
                 }
                 </div><br />
                 <div class="infoblock">
                     @if (@Model.Publisher is not null){
                     <h8>Publisher:</h8>
-                    <p class="text-end">@Model.Publisher</p>
+                    <p>@Model.Publisher</p>
                 }
                 </div>
             </div>

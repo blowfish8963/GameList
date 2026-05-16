@@ -28,20 +28,26 @@
                         <button class="btn btn-primary">Favorite</button>
                     </div> <br />
                 }
-                    <h8>Fans on GameList</h8>
-                    <p class="text-end">@Model.FanCount</p>
+                    <div class="infoblock">
+                        <h8>GameList fans: </h8>
+                        <p>@Model.FanCount</p>
+                    </div>
                 @if (@Model.ReleaseYear is not null){
-                    <h8>Release date</h8>
-                    <p class="text-end">@Model.ReleaseYear</p>
+                    <div class="infoblock">
+                        <h8>Released: </h8>
+                        <p>@Model.ReleaseYear</p>
+                    </div>
                 }
                 @if (@Model.Company is not null){
-                    <h8>Company</h8>
-                    <p class="text-end">@Model.Company</p>
+                    <div class="infoblock">
+                        <h8>Company: </h8>
+                        <p>@Model.Company</p>
+                    </div>
                 }
             </div>
         </div>
         <div>
-        <h1 class="display-5">@Model.Name.Replace('_',' ')</h1>
+        <h1 class="display-5">@Model.DisplayName</h1>
         <p class="game-desc">@Model.Desc</p>
     </div>
     </div>

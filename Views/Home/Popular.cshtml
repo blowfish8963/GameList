@@ -1,7 +1,24 @@
+@using GameList.ViewModels;
+@model List<PopularViewModel>;
 @{
-    ViewData[index: "Title"] = "Popular on GameList";
+    ViewData[index: "Title"] = "Popular";
 }
 
-<div>
-    <h1 class="display-4">Popular</h1>
+<br />
+<h1 class="display-4">Popular</h1>
+
+<div class="game-row">
+    @foreach (var g in Model){
+        <div class="game-card">
+            <a asp-controller="Game" asp-action="Game" asp-route-name="@g.Name">
+                <div class="game-card-gradient">
+                    <img src="~/images/@g.ImgUrl"/>
+                </div>
+            </a>
+            <div class="game-card-info">
+                <span>@g.DisplayName</span><br />
+                <span>@g.FanCount fans</span>
+            </div>
+        </div>
+    }
 </div>

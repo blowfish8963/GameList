@@ -1,5 +1,6 @@
 using GameList.Data;
 using GameList.Models;
+using GameList.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameList.Repositories;
@@ -8,6 +9,7 @@ public interface IGameRepository
 {
     Task<Game> GetGameByName(string name);
     Task<Platform> GetPlatformByName(string name);
+    Task<List<Game>> GetPopularGames();
 }
 
 public class GameRepository : IGameRepository
@@ -19,9 +21,18 @@ public class GameRepository : IGameRepository
     }
     public async Task<Game> GetGameByName(string name)
     {
-        var game = await _dbContext.Games.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        var game = await _dbContext.Games.Include(x => x.Platforms).FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
         if (game == null) throw new KeyNotFoundException();
         return game;
+    }
+
+    public async Task<List<Game>> GetPopularGames()
+    {
+        var games = await _dbContext.Games
+            .OrderBy(x => x.FanCount)
+            .ThenBy(x => x.DisplayName)
+            .ToListAsync();
+        return games;
     }
 
     public async Task<Platform> GetPlatformByName(string name)

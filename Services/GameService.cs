@@ -1,3 +1,4 @@
+using GameList.Migrations;
 using GameList.Models;
 using GameList.Repositories;
 using GameList.ViewModels;
@@ -8,6 +9,7 @@ public interface IGameService
 {
     public Task<GameViewModel> GetGameByName(string name);
     Task<PlatformViewModel> GetPlatformByName(string name);
+    Task<List<PopularViewModel>> GetPopularGames();
 }
 public class GameService : IGameService
 {
@@ -19,6 +21,15 @@ public class GameService : IGameService
     public async Task<GameViewModel> GetGameByName(string name)
     {
         var game = await _gameRepository.GetGameByName(name);
+        var plaftorms = new List<GameViewPlatform>();
+        foreach (var p in game.Platforms.OrderBy(x => x.ReleaseYear).ThenBy(x => x.Name))
+        {
+            plaftorms.Add(new GameViewPlatform
+            {
+                Name = p.Name,
+                DisplayName = p.DisplayName
+            });
+        }
         return new GameViewModel
         {
             Name = game.Name,
@@ -27,7 +38,7 @@ public class GameService : IGameService
             ImgUrl = game.ImgUrl,
             BannerUrl = game.BannerUrl,
             BannerOffset = game.BannerOffset,
-            Platforms = game.Platforms,
+            Platforms = plaftorms,
             FanCount = game.FanCount,
             Publisher = game.Publisher,
             ReleaseYear = game.ReleaseYear 
@@ -49,5 +60,22 @@ public class GameService : IGameService
             Company = platform.Company,
             FanCount = platform.FanCount
         };
+    }
+
+    public async Task<List<PopularViewModel>> GetPopularGames()
+    {
+        var games = await _gameRepository.GetPopularGames();
+        var popularViewModels = new List<PopularViewModel>();
+        foreach (var g in games)
+        {
+            popularViewModels.Add(new PopularViewModel()
+            {
+                Name = g.Name,
+                DisplayName = g.DisplayName,
+                ImgUrl = g.ImgUrl,
+                FanCount = g.FanCount.ToString()
+            });
+        }
+        return popularViewModels;
     }
 }

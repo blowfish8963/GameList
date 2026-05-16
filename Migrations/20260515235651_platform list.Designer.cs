@@ -3,6 +3,7 @@ using System;
 using GameList.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GameList.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260515235651_platform list")]
+    partial class platformlist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,6 +96,9 @@ namespace GameList.Migrations
                     b.Property<int>("FanCount")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("GameId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ImgUrl")
                         .HasColumnType("text");
 
@@ -104,6 +110,8 @@ namespace GameList.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GameId");
 
                     b.ToTable("Platforms");
                 });
@@ -176,21 +184,6 @@ namespace GameList.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("GamePlatform", b =>
-                {
-                    b.Property<int>("GamesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlatformsId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("GamesId", "PlatformsId");
-
-                    b.HasIndex("PlatformsId");
-
-                    b.ToTable("GamePlatform");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -325,19 +318,11 @@ namespace GameList.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("GamePlatform", b =>
+            modelBuilder.Entity("GameList.Models.Platform", b =>
                 {
                     b.HasOne("GameList.Models.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GameList.Models.Platform", null)
-                        .WithMany()
-                        .HasForeignKey("PlatformsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Platforms")
+                        .HasForeignKey("GameId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -389,6 +374,11 @@ namespace GameList.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GameList.Models.Game", b =>
+                {
+                    b.Navigation("Platforms");
                 });
 #pragma warning restore 612, 618
         }

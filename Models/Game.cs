@@ -16,6 +16,6 @@ public class Game
     public float BannerOffset{get;set;} = 50;
     public string? ReleaseYear {get;set;}
     public string? Publisher {get;set;}
-    public List<string>? Platforms {get;set;}
+    public List<Platform>? Platforms {get;set;}
     public int FanCount {get;set;} = 0;
 }
