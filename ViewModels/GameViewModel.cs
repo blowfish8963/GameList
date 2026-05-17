@@ -13,6 +13,7 @@ public class GameViewModel
     public string? Publisher {get;set;}
     public List<GameViewPlatform>? Platforms {get;set;}
     public int FanCount {get;set;} = 0;
+    public bool IsOnList {get;set;}
 }
 
 public class GameViewPlatform

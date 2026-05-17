@@ -17,9 +17,9 @@
             <img class="cover" src="~/images/@Model.ImgUrl"/>
 
             <div>
-                @if (true){
+                @if (Model.IsOnList == false){
                     <div class="game-btns1">
-                        <form asp-controller="List" asp-action="AddToList" method="post">
+                        <form asp-controller="List" asp-action="Add" method="post">
                             <input type="hidden" name="game" value="@Model.Name"/>
                             <button class="btn btn-primary add-to-list" type="submit">Add To List</button>
                         </form>
@@ -27,9 +27,12 @@
                 }
                 else {
                     <div class="game-btns2">
-                        <button class="btn btn-primary">Remove</button>
+                        <form asp-controller="List" asp-action="Remove" method="Post">
+                            <input type="hidden" name="game" value="@Model.Name" />
+                            <button class="btn btn-secondary" type="submit">Remove</button>
+                        </form>
                         <button class="btn btn-primary">Favorite</button>
-                    </div> <br />
+                    </div>
                 }
                 @if (platforms != null && platforms.Count > 0){
                     <div class="infoblock">
@@ -40,7 +43,7 @@
                             i++;
                             <a class="nav-link" asp-controller="Game" asp-action="Platform" asp-route-name="@p.Name">@p.DisplayName</a>@(i < platforms.Count ? "," : "")
                         }
-                    </div>
+                    </div>  
                 }
                 <div class="infoblock">
                     <h8>GameList fans:</h8>
@@ -64,7 +67,6 @@
                 </div>
             </div>
         </div>
-
         <div>
         <h1 class="display-5">@Model.DisplayName</h1>
         <p class="game-desc">@Model.Desc</p>

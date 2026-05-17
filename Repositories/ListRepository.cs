@@ -1,3 +1,4 @@
+using System.Formats.Asn1;
 using GameList.Data;
 using GameList.Models;
 
@@ -5,7 +6,7 @@ namespace GameList.Repositories;
 
 public interface IListRepository
 {
-    Task AddToList(UserGameList userGameList);
+    Task UpdateList(UserGameList userGameList);
 }
 public class ListRepository : IListRepository
 {
@@ -15,9 +16,14 @@ public class ListRepository : IListRepository
         _dbContext = dbContext;
     }
     
-    public async Task AddToList(UserGameList userGameList)
+    public async Task UpdateList(UserGameList userGameList)
     {
         _dbContext.UserGameLists.Update(userGameList);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task RemoveFromList(string gamename, string username)
+    {
+        
     }
 }

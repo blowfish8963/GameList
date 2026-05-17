@@ -13,13 +13,22 @@ public class ListController : Controller
         _listService = listService;
     }
 
-    [HttpPost]
+    [HttpPost("/Add")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> AddToList([FromForm] string game, string status = "testing")
+    public async Task<IActionResult> Add([FromForm] string game, string status = "testing")
     {
         string? username = User.Identity.Name.ToString();
         if (username is null) RedirectToAction("Login", "Account");
         await _listService.AddToList(game, username, status);
-        return Redirect("~/Game/"+game);
+        return Redirect("~/Game/" + game);
+    }
+
+    [HttpPost("/Remove")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Remove([FromForm] string game)
+    {
+        string? username = User.Identity.Name.ToString();
+        await _listService.RemoveFromList(game, username);
+        return Redirect("~/Game/" + game);
     }
 }

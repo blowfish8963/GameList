@@ -1,5 +1,3 @@
-using GameList.Migrations;
-using GameList.Models;
 using GameList.Repositories;
 using GameList.ViewModels;
 
@@ -7,7 +5,7 @@ namespace GameList.Services;
 
 public interface IGameService
 {
-    public Task<GameViewModel> GetGameByName(string name);
+    public Task<GameViewModel> GetGameByName(string name, string? username);
     Task<PlatformViewModel> GetPlatformByName(string name);
     Task<List<PopularViewModel>> GetPopularGames();
 }
@@ -18,7 +16,7 @@ public class GameService : IGameService
     {
         _gameRepository = gameRepository;
     }
-    public async Task<GameViewModel> GetGameByName(string name)
+    public async Task<GameViewModel> GetGameByName(string name, string? username)
     {
         var game = await _gameRepository.GetGameByName(name);
         var plaftorms = new List<GameViewPlatform>();
@@ -42,10 +40,16 @@ public class GameService : IGameService
             FanCount = game.FanCount,
             Developer = game.Developer,
             Publisher = game.Publisher,
-            ReleaseYear = game.ReleaseYear 
+            ReleaseYear = game.ReleaseYear,
+            IsOnList = username == null ? false : await IsOnList(game.Name, username)
         };
     }
 
+    public async Task<bool> IsOnList(string game, string username)
+    {
+        return await _gameRepository.IsOnList(game, username);
+    }
+    
     public async Task<PlatformViewModel> GetPlatformByName(string name)
     {
         var platform = await _gameRepository.GetPlatformByName(name);

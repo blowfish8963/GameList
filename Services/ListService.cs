@@ -6,6 +6,7 @@ namespace GameList.Services;
 public interface IListService
 {
     Task AddToList(string gamename, string username, string status);
+    Task RemoveFromList(string gamename, string username);
 }
 public class ListService : IListService
 {
@@ -26,6 +27,21 @@ public class ListService : IListService
             GameName = gamename,
             EntryStatus = status
         });
-        await _listRepository.AddToList(gameList);
+        await _listRepository.UpdateList(gameList);
+        await UpdateFanCount(gamename);
+    }
+
+    public async Task RemoveFromList(string gamename, string username)
+    {
+        var gameList = await _gameRepository.GetGameListByUsername(username);
+        var entry = gameList.Entries.FirstOrDefault(x => x.GameName == gamename);
+        gameList.Entries.Remove(entry);
+        await _listRepository.UpdateList(gameList);
+        await UpdateFanCount(gamename);
+    }
+
+    public async Task UpdateFanCount(string game)
+    {
+        await _gameRepository.UpdateFanCount(game);
     }
 }

@@ -10,6 +10,8 @@ public interface IGameRepository
     Task<Platform> GetPlatformByName(string name);
     Task<List<Game>> GetPopularGames();
     Task<UserGameList> GetGameListByUsername(string username);
+    Task<bool> IsOnList (string game, string username);
+    Task UpdateFanCount(string game);
 }
 
 public class GameRepository : IGameRepository
@@ -36,7 +38,7 @@ public class GameRepository : IGameRepository
      public async Task<List<Game>> GetPopularGames()
     {
         var games = await _dbContext.Games
-            .OrderBy(x => x.FanCount)
+            .OrderByDescending(x => x.FanCount)
             .ThenBy(x => x.DisplayName)
             .ToListAsync();
         return games;
@@ -44,7 +46,30 @@ public class GameRepository : IGameRepository
 
     public async Task<UserGameList> GetGameListByUsername(string username)
     {
-        var list = await _dbContext.UserGameLists.FirstOrDefaultAsync(x => x.Username == username);
+        var list = await _dbContext.UserGameLists.Include(x => x.Entries).FirstOrDefaultAsync(x => x.Username.ToLower() == username.ToLower());
         return list;
+    }
+
+    public async Task<bool> IsOnList (string game, string username)
+    {
+        var gameList = await _dbContext.UserGameLists.Include(x => x.Entries).FirstOrDefaultAsync(x => x.Username == username);
+        if (gameList is null) return false;
+
+        var onList = gameList.Entries.Any(x => x.GameName == game);
+        return onList;
+    }
+
+    public async Task UpdateFanCount(string game)
+    {
+        var fancount = 0;
+        var list = await _dbContext.UserGameLists.Include(x => x.Entries).Select(x => x.Entries).ToListAsync();
+        foreach (var l in list)
+        {
+            fancount += l.FindAll(x => x.GameName == game).Count();
+        }
+        var newGame = await GetGameByName(game);
+        newGame.FanCount = fancount;
+        _dbContext.Update(newGame);
+        await _dbContext.SaveChangesAsync();
     }
 }

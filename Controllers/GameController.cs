@@ -14,9 +14,10 @@ public class GameController : Controller
     }
 
     [Route("Game/{name}")]
-    public async Task<IActionResult> Game(string name)
+    public async Task<IActionResult> Game(string name, string? username)
     {
-        var game = await _gameService.GetGameByName(name);
+        var uname = User.Identity.Name;
+        var game = await _gameService.GetGameByName(name, uname);
         return View(game);
     }
 

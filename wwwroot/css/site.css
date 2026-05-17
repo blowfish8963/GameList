@@ -52,10 +52,20 @@ input[type="text"], input[type="password"], input[type="email"] {
   border-color: #000000;
   margin: 0;
 }
+.btn-secondary{
+  color: #bcbcbc;
+  background-color: transparent;
+  border-color: #4b1882;
+  margin: 0;
+}
 .btn:hover {
   color: #ffff;
   background-color: #8e15ff;
   border-color: black;
+}
+.btn-secondary:hover{
+  background-color: transparent;
+  border-color: #c13b3b;
 }
 .btn:focus, .btn:active:focus {
   background-color: #993def;
@@ -139,14 +149,18 @@ input[type="text"], input[type="password"], input[type="email"] {
   width: 231px;
 }
 .game-btns1 {
-  margin-bottom: 10px;  
+  margin-bottom: 10px
 }
 .game-btns2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 1vw;
-  padding-right: 1vw;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.game-btns2 .btn{
+  
 }
 
 
