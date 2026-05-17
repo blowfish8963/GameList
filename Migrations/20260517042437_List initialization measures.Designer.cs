@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GameList.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GameList.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260517042437_List initialization measures")]
+    partial class Listinitializationmeasures
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,9 +192,6 @@ namespace GameList.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("UserGameListUsername")
-                        .HasColumnType("text");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -204,8 +204,6 @@ namespace GameList.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
-
-                    b.HasIndex("UserGameListUsername");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -385,15 +383,6 @@ namespace GameList.Migrations
                         .IsRequired();
 
                     b.Navigation("List");
-                });
-
-            modelBuilder.Entity("GameList.Models.User", b =>
-                {
-                    b.HasOne("GameList.Models.UserGameList", "UserGameList")
-                        .WithMany()
-                        .HasForeignKey("UserGameListUsername");
-
-                    b.Navigation("UserGameList");
                 });
 
             modelBuilder.Entity("GamePlatform", b =>

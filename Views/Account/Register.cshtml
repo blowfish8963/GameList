@@ -6,16 +6,18 @@
 
 <br />
 <h1 class="display-4">Create account</h1>
-<div class="row">
-    <div  class="col-md-4">
-        <form asp-action="Register" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+<div class="login-register">
+    <form asp-controller="Account" asp-action="Register" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="email" asp-for="Email" class="form-control" aria-required="true" placeholder="Email"/> <br />
+        <input type="text" asp-for="Username" class="form-control" aria-required="true" placeholder="Username"/> <br />
+        <input type="password" asp-for="Password" class="form-control" aria-required="true" placeholder="Password"/> <br />
 
-            <input type="email" asp-for="Email" class="form-control" aria-required="true" placeholder="Email"/> <br />
-            <input type="text" asp-for="Username" class="form-control" aria-required="true" placeholder="Username"/> <br />
-            <input type="password" asp-for="Password" class="form-control" aria-required="true" placeholder="Password"/> <br />
-
+        <div class="login-register-submit">
             <button type="submit" class="btn btn-primary">Register</button>
-        </form>
-    </div>
-<div>
+            <div class="login-register-link">
+                <p class="text-end">Have an account? <a href="~/Account/Login">Login</a><p/>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,6 +1,5 @@
 using GameList.Data;
 using GameList.Models;
-using GameList.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameList.Repositories;
@@ -10,6 +9,7 @@ public interface IGameRepository
     Task<Game> GetGameByName(string name);
     Task<Platform> GetPlatformByName(string name);
     Task<List<Game>> GetPopularGames();
+    Task<UserGameList> GetGameListByUsername(string username);
 }
 
 public class GameRepository : IGameRepository
@@ -26,19 +26,25 @@ public class GameRepository : IGameRepository
         return game;
     }
 
-    public async Task<List<Game>> GetPopularGames()
+    public async Task<Platform> GetPlatformByName(string name)
+    {
+        var platform = await _dbContext.Platforms.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (platform == null) throw new KeyNotFoundException();
+        return platform;
+    }
+
+     public async Task<List<Game>> GetPopularGames()
     {
         var games = await _dbContext.Games
             .OrderBy(x => x.FanCount)
             .ThenBy(x => x.DisplayName)
             .ToListAsync();
         return games;
-    }
+    }   
 
-    public async Task<Platform> GetPlatformByName(string name)
+    public async Task<UserGameList> GetGameListByUsername(string username)
     {
-        var platform = await _dbContext.Platforms.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
-        if (platform == null) throw new KeyNotFoundException();
-        return platform;
+        var list = await _dbContext.UserGameLists.FirstOrDefaultAsync(x => x.Username == username);
+        return list;
     }
 }

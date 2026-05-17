@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using GameList.Models;
 using GameList.ViewModels;
+using GameList.Services;
 
 namespace GameList.Controllers;
 
@@ -9,9 +10,11 @@ public class AccountController : Controller
 {    
     private UserManager<User> _userManager;
     private SignInManager<User> _signInManager;
-    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+    private IListService _listService;
+    public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IListService listService)
     {
         _userManager = userManager;
+        _listService = listService;
         _signInManager = signInManager;
     }
 
@@ -31,6 +34,7 @@ public class AccountController : Controller
         var user = new User()
         {
             UserName = viewModel.Username,
+            UserGameList = new UserGameList{Username = viewModel.Username},
             Email = viewModel.Email
         };
         var result = await _userManager.CreateAsync(user, viewModel.Password);

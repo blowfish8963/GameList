@@ -1,21 +1,22 @@
 @using GameList.ViewModels;
 @model LoginViewModel
-
 @{
     ViewData["Title"] = $"Login";
 }
 
 <br />
 <h1 class="display-4">Login</h1>
-<div>
-    <div class="col-md-4">
-        <form asp-action="Login" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+<div class="login-register">
+    <form asp-controller="Account" asp-action="Login" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="text" asp-for="Username" class="form-control" aria-required="true" placeholder="Username"/> <br />
+        <input type="password" asp-for="Password" class="form-control" aria-required="true" placeholder="Password"/> <br />
 
-            <input type="text" asp-for="Username" class="form-control" aria-required="true" placeholder="Username"/> <br />
-            <input type="password" asp-for="Password" class="form-control" aria-required="true" placeholder="Password"/> <br />
-
+        <div class="login-register-submit">
             <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-    </div>
-<div>
+            <div class="login-register-link">
+                <p class="text-end">New to GameList? <a href="~/Account/Register">Register</a><p/>
+            </div>
+        </div>
+    </form>
+</div>

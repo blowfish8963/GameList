@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using GameList.Services;
+using Microsoft.AspNetCore.Identity.Data;
 
 namespace GameList.Controllers;
 

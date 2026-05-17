@@ -14,11 +14,12 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<MyDbContext>(x => x.UseNpgsql(connectionString));
-        builder.Services.AddScoped<IProfileService, ProfileService>();
         builder.Services.AddScoped<IUserRepository, UserRepository>();
-        builder.Services.AddScoped<IGameService, GameService>();
+        builder.Services.AddScoped<IProfileService, ProfileService>();
         builder.Services.AddScoped<IGameRepository, GameRepository>();
-
+        builder.Services.AddScoped<IGameService, GameService>();
+        builder.Services.AddScoped<IListRepository,ListRepository>();
+        builder.Services.AddScoped<IListService,ListService>();
         builder.Services.AddIdentity<User, IdentityRole>(options =>
         {
             options.User.RequireUniqueEmail = true;

@@ -12,4 +12,5 @@ public class MyDbContext : IdentityDbContext<User>
     }
     public DbSet<Game> Games {get;set;}
     public DbSet<Platform> Platforms {get;set;}
+    public DbSet<UserGameList> UserGameLists {get;set;}
 }

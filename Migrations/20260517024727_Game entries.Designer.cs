@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GameList.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GameList.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260517024727_Game entries")]
+    partial class Gameentries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,8 +74,11 @@ namespace GameList.Migrations
 
             modelBuilder.Entity("GameList.Models.GameListEntry", b =>
                 {
-                    b.Property<string>("GameName")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("EntryRating")
                         .HasColumnType("text");
@@ -81,13 +87,16 @@ namespace GameList.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("ListUsername")
+                    b.Property<string>("GameName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("GameName");
+                    b.Property<int>("ListId")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("ListUsername");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ListId");
 
                     b.ToTable("GameListEntry");
                 });
@@ -189,9 +198,6 @@ namespace GameList.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("UserGameListUsername")
-                        .HasColumnType("text");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -205,15 +211,16 @@ namespace GameList.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.HasIndex("UserGameListUsername");
-
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("GameList.Models.UserGameList", b =>
                 {
-                    b.Property<string>("Username")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.PrimitiveCollection<List<string>>("FavoriteCharacters")
                         .HasColumnType("text[]");
@@ -224,7 +231,10 @@ namespace GameList.Migrations
                     b.PrimitiveCollection<List<string>>("FavoritePlatforms")
                         .HasColumnType("text[]");
 
-                    b.HasKey("Username");
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
 
                     b.ToTable("UserGameLists");
                 });
@@ -380,20 +390,11 @@ namespace GameList.Migrations
                 {
                     b.HasOne("GameList.Models.UserGameList", "List")
                         .WithMany("Entries")
-                        .HasForeignKey("ListUsername")
+                        .HasForeignKey("ListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("List");
-                });
-
-            modelBuilder.Entity("GameList.Models.User", b =>
-                {
-                    b.HasOne("GameList.Models.UserGameList", "UserGameList")
-                        .WithMany()
-                        .HasForeignKey("UserGameListUsername");
-
-                    b.Navigation("UserGameList");
                 });
 
             modelBuilder.Entity("GamePlatform", b =>

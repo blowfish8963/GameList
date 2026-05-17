@@ -19,5 +19,4 @@ public class Game
     public string? Publisher {get;set;}
     public List<Platform>? Platforms {get;set;}
     public int FanCount {get;set;} = 0;
-    public List<UserGameList>? GameLists {get;set;}
 }

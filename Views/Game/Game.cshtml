@@ -19,7 +19,10 @@
             <div>
                 @if (true){
                     <div class="game-btns1">
-                        <button class="btn btn-primary add-to-list">Add To List</button>
+                        <form asp-controller="List" asp-action="AddToList" method="post">
+                            <input type="hidden" name="game" value="@Model.Name"/>
+                            <button class="btn btn-primary add-to-list" type="submit">Add To List</button>
+                        </form>
                     </div>
                 }
                 else {
